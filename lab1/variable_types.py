@@ -11,3 +11,7 @@ name_2 = 'John' # same with "John"
 print(type(p))
 print(type(name))
 print(type(name_2))
+
+a = 4
+A = "not 4"
+# a is not equal to A, register is important
