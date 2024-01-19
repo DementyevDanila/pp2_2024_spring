@@ -1,2 +1,1 @@
-print('hi')
-print('mne pomogli')
+print('hello, world!')
