@@ -5,3 +5,7 @@ print ("Hello, Danila!")
 
 #print("o_O")
 print ("Simpe examples are running out")
+
+"""
+rjgionegiuen
+"""
