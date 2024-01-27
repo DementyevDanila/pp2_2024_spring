@@ -14,3 +14,4 @@ boolist = [True, True, False]
 mixlist = list(("drill", False, 487446, True, -8.78)) # It possible to create list with comand list()
 
 print(type(mixlist)) # Wow, class is list
+
