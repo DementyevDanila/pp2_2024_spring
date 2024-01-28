@@ -1,7 +1,9 @@
-mylist = ["paper", "rock", "scissors"]
-print (mylist)
 # List is a collection which is ordered and changeable. Allows duplicate members.
 # List elements starts from [0]
+# When we say that lists are ordered, it means that the items have a defined order, and that order will not change.
+
+mylist = ["paper", "rock", "scissors"]
+print (mylist)
 
 # It possible to have same elements in one list.
 newlist = ["paper", "paper", "scissors", "rock", "rock", "scissors"]
