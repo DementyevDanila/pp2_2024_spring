@@ -17,4 +17,3 @@ num = num.split()
 newlist = list(map(int, num))
 
 spy_among_us(newlist)
-        
