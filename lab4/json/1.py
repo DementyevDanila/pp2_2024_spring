@@ -3,10 +3,6 @@ import json
 with open("sample-data.json") as file:
     y = json.load(file)
 
-floor1 = y["imdata"]
-
-def output():
-    pass
 print("Interface Status\n================================================================================")
 print("DN                                                 Description           Speed    MTU")
 print("-------------------------------------------------- --------------------  ------  ------")
