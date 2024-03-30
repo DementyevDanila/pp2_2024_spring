@@ -44,6 +44,9 @@ if (food_x == cur_x and food_y == cur_y):
 
 score = 0
 
+pos_x = []
+pos_y = []
+
 screen = pygame.display.set_mode((width, height))
 background = create_background(width, height)
 clock = pygame.time.Clock()
@@ -142,6 +145,10 @@ while not done:
                 screen.blit(background, (0, 0))
                 pygame.draw.rect(screen, 'Red', (cur_x, cur_y, size, size))
                 print("Your score is amazing:", score)
+
+        while (UpMoving == True or DownMoving == True or LeftMoving == True or RightMoving == True):
+              pos_x.append(cur_x)
+              pos_y.append(cur_y)  
 
         if (Restart == False):
             screen.blit(background, (0, 0))
