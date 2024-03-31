@@ -2,7 +2,7 @@ import pygame
 import random
 
 def create_background(width, height):
-        colors = [(255, 255, 255), (212, 212, 212)]
+        colors = [(152, 251, 152), (52, 201, 36)]
         background = pygame.Surface((width, height))
         tile_width = 20
         y = 0
@@ -38,15 +38,19 @@ x_lower_boarder = 800
 food_x = random.randint(0, 39) * 20
 food_y = random.randint(0, 29) * 20
 
-if (food_x == cur_x and food_y == cur_y):
-        food_x = random.randint(0, 39) * 20
-        food_y = random.randint(0, 29) * 20
+score = 1
+pos_x = [160]
+pos_y = [280]
 
-score = 0
+def draw_snake(x, y):
+        pygame.draw.rect(screen, "Red", (x, y, 20, 20))
 
-pos_x = []
-pos_y = []
-
+for i in range(score):
+        p = 1 + i
+        if (food_x == pos_x[-p] and food_y == pos_y[-p]):
+                food_x = random.randint(0, 39) * 20
+                food_y = random.randint(0, 29) * 20 
+        
 screen = pygame.display.set_mode((width, height))
 background = create_background(width, height)
 clock = pygame.time.Clock()
@@ -74,10 +78,12 @@ while not done:
 
             cur_x = start_x
             cur_y = start_y
-            score = 0
+            score = 1
+            pos_x = [160]
+            pos_y = [280]
 
             screen.blit(background, (0, 0))
-            pygame.draw.rect(screen, 'Red', (start_x, start_y, size, size))
+            draw_snake(start_x, start_y)
 
 
         if pressed[pygame.K_UP]: 
@@ -111,58 +117,69 @@ while not done:
 
         if (UpMoving == True and Playing == True):
             cur_y -= 20
+            pos_x.append(cur_x)
+            pos_y.append(cur_y)
             if(cur_y - 20 < y_upper_boarder):
                 Playing = False
                 cur_y += 20
                 screen.blit(background, (0, 0))
-                pygame.draw.rect(screen, 'Red', (cur_x, cur_y, size, size))
-                print("Your score is amazing:", score)
+                draw_snake(cur_x, cur_y)
+                print("Your score is amazing:", score - 1)
 
 
         if (DownMoving == True and Playing == True):
             cur_y += 20
+            pos_x.append(cur_x)
+            pos_y.append(cur_y)
             if(cur_y + 20 > y_lower_boarder):
                 Playing = False
                 cur_y -= 20
                 screen.blit(background, (0, 0))
-                pygame.draw.rect(screen, 'Red', (cur_x, cur_y, size, size))
-                print("Your score is amazing:", score)
+                draw_snake(cur_x, cur_y)
+                print("Your score is amazing:", score - 1)
 
         if (LeftMoving == True and Playing == True):
             cur_x -= 20
+            pos_x.append(cur_x)
+            pos_y.append(cur_y)
             if(cur_x - 20 < x_upper_boarder):
                 Playing = False
                 cur_x += 20
                 screen.blit(background, (0, 0))
-                pygame.draw.rect(screen, 'Red', (cur_x, cur_y, size, size))
-                print("Your score is amazing:", score)
+                draw_snake(cur_x, cur_y)
+                print("Your score is amazing:", score - 1)
 
         if (RightMoving == True and Playing == True):
             cur_x += 20
+            pos_x.append(cur_x)
+            pos_y.append(cur_y) 
             if(cur_x + 20 > x_lower_boarder):
                 Playing = False
                 cur_x -= 20
                 screen.blit(background, (0, 0))
-                pygame.draw.rect(screen, 'Red', (cur_x, cur_y, size, size))
-                print("Your score is amazing:", score)
+                draw_snake(cur_x, cur_y)
+                print("Your score is amazing:", score - 1)
 
-        while (UpMoving == True or DownMoving == True or LeftMoving == True or RightMoving == True):
-              pos_x.append(cur_x)
-              pos_y.append(cur_y)  
-
+      
         if (Restart == False):
             screen.blit(background, (0, 0))
-            pygame.draw.rect(screen, 'Red', (cur_x, cur_y, size, size))
+            if(score == 1):
+                draw_snake(cur_x, cur_y)
+            else:
+                for i in range(score):
+                        p = 1 + i
+                        draw_snake(pos_x[-p], pos_y[-p])
             pygame.draw.rect(screen, 'Blue', (food_x, food_y, size, size))
 
         if (cur_x == food_x and cur_y == food_y):
-                food_x = random.randint(0, 39) * 20
-                food_y = random.randint(0, 29) * 20
-                if (food_x == cur_x and food_y == cur_y):
-                        food_x = random.randint(0, 39) * 20
-                        food_y = random.randint(0, 29) * 20
-                pygame.draw.rect(screen, 'Blue', (food_x, food_y, size, size))
                 score += 1
+                for i in range(score):
+                        p = 1 + i
+                        if (food_x == pos_x[-p] and food_y == pos_y[-p]):
+                                food_x = random.randint(0, 39) * 20
+                                food_y = random.randint(0, 29) * 20 
+                pygame.draw.rect(screen, 'Blue', (food_x, food_y, size, size))
+                
 
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
