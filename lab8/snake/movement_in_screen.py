@@ -41,7 +41,7 @@ food_y = random.randint(0, 29) * 20
 score = 1
 pos_x = [160]
 pos_y = [280]
-
+defeat_cnt = 0
 def draw_snake(x, y):
         pygame.draw.rect(screen, "Red", (x, y, 20, 20))
 
@@ -79,6 +79,7 @@ while not done:
             cur_x = start_x
             cur_y = start_y
             score = 1
+            defeat_cnt = 0
             pos_x = [160]
             pos_y = [280]
 
@@ -169,11 +170,21 @@ while not done:
                 for i in range(score):
                         p = 1 + i
                         draw_snake(pos_x[-p], pos_y[-p])
+            for i in range(score):
+                if(score == 1):
+                        continue
+                g = 2 + i
+                if(cur_x == pos_x[-g] and cur_y == pos_y[-g]):
+                        Playing = False
+                        if (defeat_cnt == 0):
+                                print("Your score is amazing:", score - 1)
+                                defeat_cnt += 1
             pygame.draw.rect(screen, 'Blue', (food_x, food_y, size, size))
 
         if (cur_x == food_x and cur_y == food_y):
                 score += 1
                 for i in range(score):
+                        
                         p = 1 + i
                         if (food_x == pos_x[-p] and food_y == pos_y[-p]):
                                 food_x = random.randint(0, 39) * 20
