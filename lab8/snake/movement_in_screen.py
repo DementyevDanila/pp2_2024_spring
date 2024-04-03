@@ -42,6 +42,8 @@ score = 1
 pos_x = [160]
 pos_y = [280]
 defeat_cnt = 0
+
+fps = (8 + score / 5)
 def draw_snake(x, y):
         pygame.draw.rect(screen, "Red", (x, y, 20, 20))
 
@@ -82,6 +84,7 @@ while not done:
             defeat_cnt = 0
             pos_x = [160]
             pos_y = [280]
+            fps = (8 + score / 5)
 
             screen.blit(background, (0, 0))
             draw_snake(start_x, start_y)
@@ -122,9 +125,6 @@ while not done:
             pos_y.append(cur_y)
             if(cur_y - 20 < y_upper_boarder):
                 Playing = False
-                cur_y += 20
-                screen.blit(background, (0, 0))
-                draw_snake(cur_x, cur_y)
                 print("Your score is amazing:", score - 1)
 
 
@@ -134,9 +134,6 @@ while not done:
             pos_y.append(cur_y)
             if(cur_y + 20 > y_lower_boarder):
                 Playing = False
-                cur_y -= 20
-                screen.blit(background, (0, 0))
-                draw_snake(cur_x, cur_y)
                 print("Your score is amazing:", score - 1)
 
         if (LeftMoving == True and Playing == True):
@@ -145,9 +142,6 @@ while not done:
             pos_y.append(cur_y)
             if(cur_x - 20 < x_upper_boarder):
                 Playing = False
-                cur_x += 20
-                screen.blit(background, (0, 0))
-                draw_snake(cur_x, cur_y)
                 print("Your score is amazing:", score - 1)
 
         if (RightMoving == True and Playing == True):
@@ -156,9 +150,6 @@ while not done:
             pos_y.append(cur_y) 
             if(cur_x + 20 > x_lower_boarder):
                 Playing = False
-                cur_x -= 20
-                screen.blit(background, (0, 0))
-                draw_snake(cur_x, cur_y)
                 print("Your score is amazing:", score - 1)
 
       
@@ -197,5 +188,5 @@ while not done:
                         done = True
         
         pygame.display.flip()
-        clock.tick(8)
+        clock.tick(fps)
 pygame.quit()
