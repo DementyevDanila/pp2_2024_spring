@@ -56,8 +56,7 @@ while not done:
                 if event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:
                         Fps = 60
-                        if (index2 != 2):
-                                second_screen.blit(screen, (0, 0))
+                        second_screen.blit(screen, (0, 0))
                         MouseMoving = False
 
                         
