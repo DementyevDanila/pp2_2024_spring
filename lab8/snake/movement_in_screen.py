@@ -21,6 +21,8 @@ def create_background(width, height):
 
 pygame.init()
 
+clock = pygame.time.Clock()
+
 width = 800
 height = 600
 
@@ -42,6 +44,10 @@ score = 1
 pos_x = [160]
 pos_y = [280]
 defeat_cnt = 0
+
+font = pygame.font.SysFont("comicsansms", 30)
+txt = str("Score: " + str(score - 1))
+text = font.render(txt, True, "Brown")
 
 fps = (8 + score / 5)
 def draw_snake(x, y):
@@ -86,6 +92,9 @@ while not done:
             pos_y = [280]
             fps = (8 + score / 5)
 
+            txt = str("Score: " + str(score - 1))
+            text = font.render(txt, True, "Brown")
+
             screen.blit(background, (0, 0))
             draw_snake(start_x, start_y)
 
@@ -125,7 +134,6 @@ while not done:
             pos_y.append(cur_y)
             if(cur_y - 20 < y_upper_boarder):
                 Playing = False
-                print("Your score is amazing:", score - 1)
 
 
         if (DownMoving == True and Playing == True):
@@ -134,7 +142,6 @@ while not done:
             pos_y.append(cur_y)
             if(cur_y + 20 > y_lower_boarder):
                 Playing = False
-                print("Your score is amazing:", score - 1)
 
         if (LeftMoving == True and Playing == True):
             cur_x -= 20
@@ -142,7 +149,6 @@ while not done:
             pos_y.append(cur_y)
             if(cur_x - 20 < x_upper_boarder):
                 Playing = False
-                print("Your score is amazing:", score - 1)
 
         if (RightMoving == True and Playing == True):
             cur_x += 20
@@ -150,7 +156,6 @@ while not done:
             pos_y.append(cur_y) 
             if(cur_x + 20 > x_lower_boarder):
                 Playing = False
-                print("Your score is amazing:", score - 1)
 
       
         if (Restart == False):
@@ -167,21 +172,22 @@ while not done:
                 g = 2 + i
                 if(cur_x == pos_x[-g] and cur_y == pos_y[-g]):
                         Playing = False
-                        if (defeat_cnt == 0):
-                                print("Your score is amazing:", score - 1)
-                                defeat_cnt += 1
             pygame.draw.rect(screen, 'Blue', (food_x, food_y, size, size))
 
         if (cur_x == food_x and cur_y == food_y):
                 score += 1
+                txt = str("Score: " + str(score - 1))
+                text = font.render(txt, True, "Brown")
                 for i in range(score):
-                        
                         p = 1 + i
                         if (food_x == pos_x[-p] and food_y == pos_y[-p]):
                                 food_x = random.randint(0, 39) * 20
                                 food_y = random.randint(0, 29) * 20 
                 pygame.draw.rect(screen, 'Blue', (food_x, food_y, size, size))
-                
+
+        screen.blit(text, (330, 10))
+        
+        
 
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
